@@ -9,7 +9,7 @@ export default function Input({ divStyle, children, ...props }: Props) {
     : `block w-full px-3 py-2 text-dark-bg dark:text-light-text
           bg-light-btn dark:bg-dark-btn
           border border-gray-300 dark:border-gray-700
-          rounded-md shadow-sm placeholder-gray-400
+          rounded-md placeholder-gray-400
           focus:outline-none focus:ring-2 focus:ring-light-text dark:focus:ring-dark-text
           focus:border-light-text dark:focus:border-dark-text
           transition-all duration-200

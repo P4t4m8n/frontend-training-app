@@ -20,7 +20,7 @@ const NAV_LINKS = [
     text: "Trainees",
   },
   {
-    to: "trainees/edit",
+    to: "trainees/create",
     text: "Create",
   },
 ];

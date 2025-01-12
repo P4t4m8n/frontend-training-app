@@ -3,6 +3,8 @@ import { RouteConfig } from "./types/app.type";
 import Home from "./pages/Home";
 import Trainer from "./pages/Trainer";
 import TraineesIndex from "./components/Trainer/Trainees/TraineesIndex";
+import UserCreateIndex from "./components/User/UserCreate/UserCreateIndex";
+import Registry from "./pages/Registry";
 
 export const renderRoutes = (routes: RouteConfig[]) => {
   return routes.map((route) => (
@@ -17,6 +19,7 @@ export const ROUTES: RouteConfig[] = [
     path: "/",
     element: <Home />,
   },
+  { path: "/registry", element: <Registry /> },
   {
     path: "/trainer",
     element: <Trainer />,
@@ -24,6 +27,10 @@ export const ROUTES: RouteConfig[] = [
       {
         path: "trainees",
         element: <TraineesIndex />,
+      },
+      {
+        path: "trainees/create",
+        element: <UserCreateIndex />,
       },
     ],
   },

@@ -15,7 +15,8 @@ interface AuthProvider {
   getCurrentUserNoRender: () => TUser | null;
 }
 
-const authContext = createContext<AuthProvider | undefined>(undefined);
+// eslint-disable-next-line react-refresh/only-export-components
+export const authContext = createContext<AuthProvider | undefined>(undefined);
 
 interface Props {
   children: React.ReactNode;
@@ -31,22 +32,22 @@ export const AuthProvider: FC<Props> = ({
   const userRef = useRef<TUser | null>(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const uniqueId = getSessionData<string>("uniqueId");
-        if (!uniqueId) return;
-        const user = await authService.validateToken(uniqueId);
-        setUser(user);
-        userRef.current = user;
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-
     fetchUser();
   }, []);
 
   const getCurrentUserNoRender = () => userRef.current;
+  
+  const fetchUser = async () => {
+    try {
+      const uniqueId = getSessionData<string>("uniqueId");
+      if (!uniqueId) return;
+      const user = await authService.validateToken(uniqueId);
+      setUser(user);
+      userRef.current = user;
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
 
   return (
     <authContext.Provider value={{ user, getCurrentUserNoRender }}>

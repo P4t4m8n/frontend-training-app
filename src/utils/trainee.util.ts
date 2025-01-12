@@ -26,6 +26,7 @@ const getInputs = (trainerId: string, metrics?: TTraineeMetrics) => {
       hidden: true,
       defaultValue: trainerId,
       className: "hidden",
+      divStyle: "hidden",
     },
 
     {

@@ -4,7 +4,7 @@ import { apiService } from "./api.service";
 async function create(formData: FormData) {
   const dto = formDataToCreateDto(formData);
   const magicLink = await apiService.post<TUserCreateDto, string>(
-    "/users",
+    "auth/create/trainee",
     dto
   );
 
@@ -18,6 +18,7 @@ const formDataToCreateDto = (formData: FormData): TUserCreateDto => {
     lastName: formData.get("lastName") as string,
     phone: formData.get("phone") as string,
     trainee: {
+      trainerId: formData.get("trainerId") as string,
       metrics: {
         heartRate: +(formData.get("heartRate") || 0),
         weight: parseFloat((formData.get("weight") as string) || "0"),

@@ -7,6 +7,7 @@ export type TTrainee = {
   trainings?: TTrainingToTrainee[];
   trainer?: Omit<TUser, "trainee" | "uniquePhoneId">;
   metrics?: TTraineeMetrics;
+  trainerId?: string;
 };
 
 export type TraineeDto = {
@@ -22,6 +23,7 @@ export type TTraineeMetrics = {
   bloodPressureSystole?: number;
   bloodPressureDiastole?: number;
   date?: Date;
+  trainerId?: string;
 };
 
 export type TTraineeMetricsDto = Omit<TTraineeMetrics, "date"> & {
