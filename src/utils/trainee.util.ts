@@ -1,7 +1,12 @@
-import { TTrainee, TTraineeMetrics } from "../types/trainee.type";
-import { TUser } from "../types/user.type";
+import {
+  TTrainee,
+  TTraineeFilter,
+  TTraineeMetrics,
+} from "../types/trainee.type";
+import { TTrainer } from "../types/trainer.type";
+import { userUtil } from "./user.util";
 
-const getEmpty = (trainer: TUser): TTrainee => {
+const getEmpty = (trainer: TTrainer): TTrainee => {
   return {
     programs: [],
     trainings: [],
@@ -14,6 +19,7 @@ const getEmpty = (trainer: TUser): TTrainee => {
       bloodPressureSystole: 0,
       bloodPressureDiastole: 0,
     },
+    user: userUtil.getEmpty(),
   };
 };
 
@@ -71,7 +77,17 @@ const getInputs = (trainerId: string, metrics?: TTraineeMetrics) => {
     },
   ];
 };
+
+const getEmptyFilter = (): TTraineeFilter => {
+  return {
+    firstName: "",
+    lastName: "",
+    email: "",
+  
+  };
+};
 export const traineeUtil = {
   getEmpty,
   getInputs,
+  getEmptyFilter,
 };

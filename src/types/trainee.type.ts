@@ -1,31 +1,39 @@
+import { TEntity } from "./app.type";
 import { TProgram } from "./program.type";
+import { TTrainer } from "./trainer.type";
 import { TTrainingToTrainee } from "./training.type";
-import { TUser } from "./user.type";
+import { TUser, TUserDto } from "./user.type";
 
-export type TTrainee = {
+export type TTrainee = TEntity & {
   programs?: TProgram[];
   trainings?: TTrainingToTrainee[];
-  trainer?: Omit<TUser, "trainee" | "uniquePhoneId">;
-  metrics?: TTraineeMetrics;
-  trainerId?: string;
+  trainer?: Omit<TTrainer, "trainees" | "programs">;
+  metrics?: TTraineeMetrics[];
+  user: TUser;
 };
 
-export type TraineeDto = {
-  userId: string;
-  trainerId?: string;
+export type TTraineeFilter = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  skip?: number;
+  take?: number;
 };
 
-export type TTraineeMetrics = {
+export type TTraineeDto = {
+  userDto: TUserDto;
+  trainerId?: string;
+  metricsDto?: TTraineeMetricsDto;
+};
+
+export type TTraineeMetrics = TEntity & {
   heartRate?: number;
   weight?: number;
   height?: number;
   age?: number;
   bloodPressureSystole?: number;
   bloodPressureDiastole?: number;
-  date?: Date;
-  trainerId?: string;
+  date?: string;
 };
 
-export type TTraineeMetricsDto = Omit<TTraineeMetrics, "date"> & {
-  traineeId: string;
-};
+export type TTraineeMetricsDto = Omit<TTraineeMetrics, "date">;

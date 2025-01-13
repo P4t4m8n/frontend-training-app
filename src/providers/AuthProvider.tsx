@@ -6,13 +6,14 @@ import {
   FC,
   createContext,
 } from "react";
-import { TUser } from "../types/user.type";
+import { TFullUser } from "../types/user.type";
 import { getSessionData } from "../utils/localStorage.util";
 import { authService } from "../services/auth.service";
 
 interface AuthProvider {
-  user: TUser | null;
-  getCurrentUserNoRender: () => TUser | null;
+  user: TFullUser | null;
+  getCurrentUserNoRender: () => TFullUser | null;
+  fetchUser: () => Promise<void>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -26,22 +27,23 @@ export const AuthProvider: FC<Props> = ({
 }: {
   children: ReactNode;
 }) => {
-  const [user, setUser] = useState<TUser | null>(null);
+  const [user, setUser] = useState<TFullUser | null>(null);
 
   //Access the state value without causing a re-render
-  const userRef = useRef<TUser | null>(null);
+  const userRef = useRef<TFullUser | null>(null);
 
   useEffect(() => {
     fetchUser();
   }, []);
 
   const getCurrentUserNoRender = () => userRef.current;
-  
+
   const fetchUser = async () => {
     try {
       const uniqueId = getSessionData<string>("uniqueId");
       if (!uniqueId) return;
       const user = await authService.validateToken(uniqueId);
+      console.info("Hello:", user.firstName);
       setUser(user);
       userRef.current = user;
     } catch (error) {
@@ -50,7 +52,7 @@ export const AuthProvider: FC<Props> = ({
   };
 
   return (
-    <authContext.Provider value={{ user, getCurrentUserNoRender }}>
+    <authContext.Provider value={{ user, getCurrentUserNoRender, fetchUser }}>
       {children}
     </authContext.Provider>
   );

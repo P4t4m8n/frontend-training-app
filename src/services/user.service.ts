@@ -1,37 +1,27 @@
-import { TUserCreateDto } from "../types/user.type";
+import { TUserDto } from "../types/user.type";
 import { apiService } from "./api.service";
 
 async function create(formData: FormData) {
   const dto = formDataToCreateDto(formData);
-  const magicLink = await apiService.post<TUserCreateDto, string>(
+  const { url } = await apiService.post<TUserDto, { url: string }>(
     "auth/create/trainee",
     dto
   );
 
-  return magicLink;
+  return url;
 }
 
-const formDataToCreateDto = (formData: FormData): TUserCreateDto => {
-  const user: TUserCreateDto = {
+const formDataToCreateDto = (formData: FormData): TUserDto => {
+  const user: TUserDto = {
     email: formData.get("email") as string,
     firstName: formData.get("firstName") as string,
     lastName: formData.get("lastName") as string,
     phone: formData.get("phone") as string,
-    trainee: {
-      trainerId: formData.get("trainerId") as string,
-      metrics: {
-        heartRate: +(formData.get("heartRate") || 0),
-        weight: parseFloat((formData.get("weight") as string) || "0"),
-        height: +(formData.get("height") || 0),
-        age: +(formData.get("age") || 0),
-        bloodPressureSystole: +(formData.get("bloodPressureSystole") || 0),
-        bloodPressureDiastole: +(formData.get("bloodPressureDiastole") || 0),
-      },
-    },
   };
   return user;
 };
 
 export const userService = {
   create,
+  formDataToCreateDto
 };

@@ -1,11 +1,13 @@
 import { TEntity } from "./app.type";
 import { TProgram } from "./program.type";
-import { TUser } from "./user.type";
+import { TTrainee } from "./trainee.type";
+import { TUser, TUserDto } from "./user.type";
 
 export type TTrainer = TEntity & {
-  trainees: Omit<TUser, "trainer" | "uniquePhoneId">[];
+  trainees: TTrainee[];
   programs: TProgram[];
+  user: TUser;
 };
 export type TTrainerDto = {
-  userId: string;
+  user: TUserDto;
 };

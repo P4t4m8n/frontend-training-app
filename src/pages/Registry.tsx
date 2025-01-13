@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Navigate } from "react-router";
 
 import { authService } from "../services/auth.service";
+import { useUser } from "../hooks/useUser";
 
 export default function Registry() {
   const [searchParams] = useSearchParams();
   const [redirect, setRedirect] = useState<string | null>(null);
+  const { fetchUser } = useUser();
 
   useEffect(() => {
     onRegister();
@@ -18,6 +20,7 @@ export default function Registry() {
       if (!token) return;
 
       await authService.register(token);
+      await fetchUser();
       setRedirect("/");
     } catch (error) {
       console.error(error);

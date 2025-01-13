@@ -7,12 +7,19 @@ export type TUser = TEntity & {
   lastName?: string;
   email: string;
   phone?: string | null;
+};
+
+export type TFullUser = TUser & {
   trainer?: TTrainer;
   trainee?: TTrainee;
 };
 
-export type TUserDto = Omit<TUser, "trainer" | "trainee">;
-export type TUserCreateDto = Omit<TUser, "id">;
+export type TUserDto = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string | null;
+};
 
 export type TUserFilter = {
   email?: string;

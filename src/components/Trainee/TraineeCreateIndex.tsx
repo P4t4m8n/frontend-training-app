@@ -1,17 +1,16 @@
-import { useUser } from "../../../hooks/useUser";
-import { userUtil } from "../../../utils/user.util";
-import { traineeUtil } from "../../../utils/trainee.util";
 import { useState } from "react";
-import { userService } from "../../../services/user.service";
-import MagicLink from "../../MagicLink/MagicLink";
-import Button from "../../UI/Button";
-import Input from "../../UI/Form/Input";
+import { useUser } from "../../hooks/useUser";
+import { userUtil } from "../../utils/user.util";
+import { traineeUtil } from "../../utils/trainee.util";
+import Input from "../UI/Form/Input";
+import MagicLink from "../MagicLink/MagicLink";
+import Button from "../UI/Button";
+import { traineeService } from "../../services/trainee.service";
 
-export default function UserCreateIndex() {
+export default function TraineeCreateIndex() {
   const [isLoading, setIsLoading] = useState(false);
   const [magicLink, setMagicLink] = useState<string | null>(null);
-  const user = useUser().getCurrentUserNoRender();
-  console.log("user:", user);
+  const { user } = useUser();
 
   const trainerId = user?.trainer?.id;
   const userInput = userUtil.getInputs();
@@ -23,8 +22,7 @@ export default function UserCreateIndex() {
       setIsLoading(true);
       const formData = new FormData(e.currentTarget);
 
-      const _magicLink = await userService.create(formData);
-      console.log("_magicLink:", _magicLink);
+      const _magicLink = await traineeService.create(formData);
       setMagicLink(_magicLink);
     } catch (error) {
       console.error(error);
@@ -56,6 +54,9 @@ export default function UserCreateIndex() {
             </ul>
           </div>
         </div>
+
+        {magicLink && <MagicLink magicLink={magicLink} />}
+
         <Button
           styleMode="none"
           styleSize="none"
@@ -66,7 +67,6 @@ export default function UserCreateIndex() {
           {isLoading ? "Creating..." : "Create"}
         </Button>
       </form>
-      {magicLink && <MagicLink magicLink={magicLink} />}
     </div>
   );
 }

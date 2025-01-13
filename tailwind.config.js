@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "trainer-outlet": "calc(100% - 3rem)",
+      },
+    },
   },
   plugins: [],
 };

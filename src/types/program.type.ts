@@ -3,8 +3,8 @@ import { TTrainingToTrainee } from "./training.type";
 
 export type TProgram = TEntity & {
   name?: string;
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string;
+  endDate?: string;
   days?: TDaysOfWeek[];
   trainings?: TTrainingToTrainee[];
   isActive?: boolean;
