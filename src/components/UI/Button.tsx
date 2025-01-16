@@ -53,7 +53,7 @@ export default function Button({
                 transition-all
                 duration-200
                 disabled:opacity-50
-                disabled:cursor-not-allowed`;
+                disabled:cursor-not-allowed `;
   return (
     <button {...props} className={style}>
       {children}

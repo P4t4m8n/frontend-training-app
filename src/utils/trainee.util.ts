@@ -11,14 +11,7 @@ const getEmpty = (trainer: TTrainer): TTrainee => {
     programs: [],
     trainings: [],
     trainer,
-    metrics: {
-      heartRate: 0,
-      weight: 0,
-      height: 0,
-      age: 0,
-      bloodPressureSystole: 0,
-      bloodPressureDiastole: 0,
-    },
+    metrics: [getEmptyMetrics()],
     user: userUtil.getEmpty(),
   };
 };
@@ -78,12 +71,22 @@ const getInputs = (trainerId: string, metrics?: TTraineeMetrics) => {
   ];
 };
 
+const getEmptyMetrics = (): TTraineeMetrics => {
+  return {
+    heartRate: 0,
+    weight: 0,
+    height: 0,
+    age: 0,
+    bloodPressureSystole: 0,
+    bloodPressureDiastole: 0,
+  };
+};
+
 const getEmptyFilter = (): TTraineeFilter => {
   return {
     firstName: "",
     lastName: "",
     email: "",
-  
   };
 };
 export const traineeUtil = {

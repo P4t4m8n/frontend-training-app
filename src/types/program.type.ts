@@ -1,4 +1,6 @@
 import { TEntity } from "./app.type";
+import { TTrainee } from "./trainee.type";
+import { TTrainer } from "./trainer.type";
 import { TTrainingToTrainee } from "./training.type";
 
 export type TProgram = TEntity & {
@@ -8,10 +10,12 @@ export type TProgram = TEntity & {
   days?: TDaysOfWeek[];
   trainings?: TTrainingToTrainee[];
   isActive?: boolean;
+  trainee?: Partial<TTrainee>;
+  trainer?: Partial<TTrainer>;
 };
 
 export type TProgramDto = TEntity &
-  Omit<TProgram, "trainings"> & {
+  Omit<TProgram, "trainings" | "trainee" | "trainer"> & {
     traineeId?: string;
     trainerId?: string;
   };

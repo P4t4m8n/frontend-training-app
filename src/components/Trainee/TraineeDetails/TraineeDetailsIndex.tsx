@@ -10,9 +10,8 @@ import TraineeUserDetails from "./TraineeUserDetails";
 import TraineeDetailsPrograms from "./TraineeDetailsPrograms";
 import TraineeDetailsTraining from "./TraineeDetailsTraining";
 
-export default function TraineeDetails() {
+export default function TraineeDetailsIndex() {
   const [trainee, setTrainee] = useState<TTrainee | null>(null);
-  console.log("trainee:", trainee);
   const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams<{ id: string }>();
 
@@ -46,7 +45,7 @@ export default function TraineeDetails() {
     <div className="flex flex-col gap-4 pt-4 h-trainer-outlet">
       <TraineeUserDetails user={user} />
       <MetricsDetails metrics={lastMetrics || {}} />
-      <TraineeDetailsPrograms programs={programs || []} />
+      <TraineeDetailsPrograms programs={programs || []} traineeId={id!} />
       <TraineeDetailsTraining trainings={trainings || []} />
     </div>
   );

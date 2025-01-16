@@ -6,3 +6,15 @@
   grid-template-columns: calc(50% - 4rem) calc(50% - 3.5rem) 1.5rem 1.5rem;
   @apply gap-6 grid py-1 bg-slate-100 p-2 rounded;
 }
+.trainee-details-program-preview {
+  grid-template-columns: calc(40% - 2rem) calc(60% - 1.5rem) 1.5rem;
+  @apply gap-4 grid border bg-slate-100 p-2 rounded;
+}
+.trainer-edit-set {
+  grid-template-columns: calc(100% - 19.5rem) repeat(3, 4.5rem) 2rem;
+  @apply gap-4 grid border bg-slate-100 p-2 rounded items-center;
+}
+.training-preview-item {
+  grid-template-columns: calc(100% - 10rem) 6rem 2rem;
+  @apply gap-4 grid  p-2  items-center;
+}

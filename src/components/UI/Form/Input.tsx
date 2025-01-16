@@ -3,7 +3,9 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   children?: React.ReactNode;
 }
 
-export default function Input({ divStyle, children, ...props }: Props) {
+import React, { memo } from 'react';
+
+const Input = memo(function Input({ divStyle, children, ...props }: Props) {
   const style = props.className
     ? props.className
     : `block w-full px-3 py-2 text-dark-bg dark:text-light-text
@@ -20,4 +22,7 @@ export default function Input({ divStyle, children, ...props }: Props) {
       <input {...props} className={style} />
     </div>
   );
-}
+});
+
+
+export default Input;

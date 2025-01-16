@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { TProgram } from "../../../types/program.type";
 
@@ -13,12 +13,14 @@ import ProgramEditDays from "./ProgramEditDays";
 import ProgramEditDates from "./ProgramEditDates";
 import Button from "../../UI/Button";
 
-export default function ProgramEdit() {
-  const { id: programId, userId } = useParams<{ userId: string; id: string }>();
+export default function ProgramEditIndex() {
+  const { id: programId, traineeId } = useParams<{ traineeId: string; id: string }>();
 
   const trainerId = useUser().getCurrentUserNoRender()?.trainer?.id;
   const [programToEdit, setProgramToEdit] = useState<TProgram | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadProgram();
@@ -28,7 +30,7 @@ export default function ProgramEdit() {
   const loadProgram = async () => {
     try {
       if (!programId) {
-        const _program = programUtil.getEmpty(trainerId!, userId!);
+        const _program = programUtil.getEmpty(trainerId!, traineeId!);
         setProgramToEdit(_program);
         return;
       }
@@ -45,8 +47,13 @@ export default function ProgramEdit() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     try {
       setIsLoading(true);
+      const formData = new FormData(e.currentTarget);
+      //TODO add ids and data validation
+      const id = await programService.create(formData, traineeId!, trainerId!);
+      navigate(`/programs/${traineeId}/${id}`);
     } catch (error) {
       console.error(error);
     } finally {
@@ -54,17 +61,30 @@ export default function ProgramEdit() {
     }
   };
 
-  if (isLoading || !programToEdit) return <div>Loading...</div>;
+  if (!programToEdit) return <div>Loading...</div>;
 
   const { name, days, startDate, endDate } = programToEdit;
   return (
-    <form className="" onSubmit={onSubmit}>
-      <Input type="hidden" name="id" defaultValue={programId} />
-
-      <Input type="text" placeholder="Name" defaultValue={name} name="name" />
+    <form
+      className="pt-4 flex flex-col gap-4  h-trainer-outlet"
+      onSubmit={onSubmit}
+    >
+      <Input
+        type="text"
+        placeholder="Name"
+        defaultValue={name}
+        name="name"
+        divStyle="h-10"
+      />
       <ProgramEditDays days={days || []} />
       <ProgramEditDates startDate={startDate} endDate={endDate} />
-      <Button styleMode="secondary" styleSize="large" type="submit">
+      <Button
+        styleMode="secondary"
+        styleSize="large"
+        type="submit"
+        className=""
+        disabled={isLoading}
+      >
         Save
       </Button>
     </form>

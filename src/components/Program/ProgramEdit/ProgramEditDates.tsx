@@ -13,21 +13,25 @@ export default function ProgramEditDates({ startDate, endDate }: Props) {
 
   const formattedEndDate = dateUtil.formatDateForInput(endDate || new Date());
   return (
-    <div>
-      <Label htmlFor="startDate">Start Date</Label>
-      <Input
-        type="date"
-        name="startDate"
-        id="startDate"
-        defaultValue={formattedStartDate}
-      />
-      <Label htmlFor="endDate">Edn Date</Label>
-      <Input
-        type="date"
-        name="endDate"
-        id="endDate"
-        defaultValue={formattedEndDate}
-      />
-    </div>
+    <>
+      <span>
+        <Label htmlFor="startDate">Start Date</Label>
+        <Input
+          type="date"
+          name="startDate"
+          id="startDate"
+          defaultValue={formattedStartDate}
+        />
+      </span>
+      <span>
+        <Label htmlFor="endDate">Edn Date</Label>
+        <Input
+          type="date"
+          name="endDate"
+          id="endDate"
+          defaultValue={formattedEndDate}
+        />
+      </span>
+    </>
   );
 }
