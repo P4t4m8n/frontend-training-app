@@ -1,9 +1,9 @@
+import React, { memo } from "react";
+
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   divStyle?: string;
   children?: React.ReactNode;
 }
-
-import React, { memo } from 'react';
 
 const Input = memo(function Input({ divStyle, children, ...props }: Props) {
   const style = props.className
@@ -23,6 +23,5 @@ const Input = memo(function Input({ divStyle, children, ...props }: Props) {
     </div>
   );
 });
-
 
 export default Input;

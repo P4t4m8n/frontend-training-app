@@ -10,6 +10,7 @@ import ProgramEditIndex from "./components/Program/ProgramEdit/ProgramEditIndex"
 import ProgramDetailsIndex from "./components/Program/ProgramDetails/ProgramDetailsIndex";
 import TrainingEditIndex from "./components/Training/TrainingEditIndex/TrainingEditIndex";
 import TrainerTrainingList from "./components/Trainer/Trainings/TrainerTrainingList";
+import TrainingDetailsIndex from "./components/Training/TrainingDetails/TrainingDetailsIndex";
 
 export const renderRoutes = (routes: RouteConfig[]) => {
   return routes.map((route) => (
@@ -27,6 +28,10 @@ export const ROUTES: RouteConfig[] = [
   {
     path: "/programs/:userId/:id",
     element: <ProgramDetailsIndex />,
+  },
+  {
+    path: "/training/:id",
+    element: <TrainingDetailsIndex />,
   },
   { path: "/registry", element: <Registry /> },
   {
